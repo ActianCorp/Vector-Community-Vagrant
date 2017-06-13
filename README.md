@@ -1,4 +1,4 @@
-*Vector Community Edition installation using Vagrant
+# Vector Community Edition installation using Vagrant
 
 This Vagrant 'package' will configure a Centos 7.3 Linux box with the Community edition of Vector installed and running. Additionally, the DBT3 benchmark data will be installed and run.
 
@@ -19,7 +19,7 @@ To achieve this there are certain mandatory pre-requisites that must be fulfille
 This package was tested using Vagrant 1.9.5, CentOS 7.3 and Oracle Virtual Box 5.1.22 / Microsoft
 Azure free trial.
 
-**Using Microsoft Azure as the VM provider
+## Using Microsoft Azure as the VM provider
 
 This package by default uses Oracle Virtual Box as the VM provider by default.
 However,  it is also configured to be used with the Microsoft Azure cloud service.
@@ -38,7 +38,7 @@ First thing to know is that unlike Virtual Box you can't have a Vagrant file for
 
 A separate illustrated MS Word document is available to guide you through the Azure subscription process and how to setup Azure and the Vagrant file changes required which are related to your personal subscription.
 
-**Usage
+## Usage
 
 To get your Vector installation up and running:
 
@@ -61,7 +61,7 @@ The DBT3 test scripts have been run. The following output files are applicable:
     2. Run results - /actian/home/VectorH-DBT3-Scripts/run_performance.out
 
 
-**NOTES
+## NOTES
 
 If installing under Windows 10, you may hit problems with Vagrant and Virtual Box in being able to SSH into the created VM if there is a space in the pathname. The workaround for this is to use this as way to start an SSH shell, instead of simply using 'vagrant ssh':
 
