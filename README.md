@@ -67,17 +67,18 @@ The DBT3 test scripts have been run. The following output files are applicable:
 
 If installing under Windows 10, you may hit problems with Vagrant and Virtual Box in being able to SSH into the created VM if there is a space in the pathname. The workaround for this is to use this as way to start an SSH shell, instead of simply using 'vagrant ssh':
 
-vagrant ssh-config > vagrant-ssh-config && ssh -A -F vagrant-ssh-config default
+`vagrant ssh-config > vagrant-ssh-config && ssh -A -F vagrant-ssh-config default`
 
 This command can be placed into your .bashrc or created as an alias for convenience, e.g.:
 
-vagrant() {
+```vagrant() {
   if [[ $@ == "ssh" ]]; then
     command vagrant ssh-config > vagrant-ssh-config && ssh -A -F vagrant-ssh-config default
   else
     command vagrant "$@"
   fi
 }
+```
 
 The approach to using 'Chef' in the Vagrantfile may seem strange as the installation and chef-apply are performed via the "config.vm.provision 'shell' ....".
 This was intentional to create a generic script that would work for providers Oracle Virtual Box and Azure.
