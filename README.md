@@ -51,7 +51,9 @@ A terminal screen will be displayed for the Virtual Box VM created. For Azure, s
 
 The complete configuration for Virtual Box can take up to 5 minutes dependent on the speed of your network.  If using the Microsoft Azure provider be patient as in the author's experience it can take a little longer!
 
-When complete logon as User: actian, Password : actian
+When complete, either logon directly to the VM as User: actian, Password : actian
+
+Or else you can use "vagrant ssh" to get a shell as the 'vagrant' user. If you want to use Vector then you should 'su - actian' to be able to use the Vector tools. If you hit a problem with vagrant ssh, see the Notes section below for a troubleshooting tip.
 
 At this point the Vector environment is fully configured for you to use.
 
