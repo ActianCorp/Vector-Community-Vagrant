@@ -42,7 +42,7 @@ A separate illustrated MS Word document is available to guide you through the Az
 
 To get your Vector installation up and running:
 
-    1. Download the Actian Vector Evaluation installation package from here : http://www.actian.com/lp/vector-community-edition       
+    1. Download the Actian Vector Community installation package from here : http://www.actian.com/lp/vector-community-edition       
     2. Create a directory for the project, e.g. "c:\Vector"
     3. Into this directory copy the files in this package, the Vector Community installation package e.g. actian-vector-5.0.0-405-community-linux-x86_64.tgz.
     4. From a command prompt in the directory you created run "vagrant up".
