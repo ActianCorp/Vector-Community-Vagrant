@@ -17,7 +17,7 @@
 #-------------------------------------------------------------------------------
 #
 # This chef script will install a previously downloaded community edition of
-# Actian Vector as installation VH in /opt/Actian/Vector.
+# Actian Vector as installation VW in /opt/Actian/Vector.
 #
 # The following files are required by this script and should have previously
 # been downloaded from Actian into the folder from which Vagrant was launched:
