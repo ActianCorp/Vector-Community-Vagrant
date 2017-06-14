@@ -44,7 +44,7 @@ end
 
 file "/home/actian/.bashrc" do
   content <<-EOH
-[ -f ~/.ingVHsh ] && source ~/.ingVHsh
+[ -f ~/.ingVWsh ] && source ~/.ingVWsh
 EOH
   owner "actian"
   mode 00700
