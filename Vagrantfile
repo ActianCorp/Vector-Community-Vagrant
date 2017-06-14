@@ -57,6 +57,17 @@ Vagrant.configure(2) do |config|
     # Customize the amount of memory on the VM
     vb.memory = "4096"
 
+    # Forward VM ports to the host machine for easier access
+    # Ports needed for VW listen address are: 27832 27839 44223 16902 8080
+    # Note that these ports will have to change if you change the listen address
+    # that Vector is installed with, from VW to something else.
+
+    config.vm.network "forwarded_port", guest: 27832, host: 27832
+    config.vm.network "forwarded_port", guest: 27839, host: 27839
+    config.vm.network "forwarded_port", guest: 44223, host: 44223
+    config.vm.network "forwarded_port", guest: 16902, host: 16902
+    config.vm.network "forwarded_port", guest: 8080, host: 8080
+
   end
 
   # Provider - Microsoft Azure VM
@@ -148,7 +159,7 @@ Vagrant.configure(2) do |config|
 
 # Set the 'actian' passwd
 
-  config.vm.provision 'shell', name: 'Set Actian Password', privileged: true, inline: <<-SHELL
+  config.vm.provision 'shell', name: 'Set Actian OS Password', privileged: true, inline: <<-SHELL
     sudo su - -c 'echo -e "actian\nactian" | passwd actian > /tmp/passwd.log 2>&1'
   SHELL
 
@@ -171,11 +182,12 @@ Vagrant.configure(2) do |config|
     sudo su - actian -c 'ingstart > /tmp/ingstart.log 2>&1; echo "Done"'
   SHELL
 
-# Download and Run the DBT3 Test Suite
-# TODO: Needs to be updated for Vector Community, rather than VectorH
+# Download and Run the DBT3 Test Suite. Set a password for the actian database user at the same time
 
   config.vm.provision 'shell', name: 'DBT3 Test Suite', privileged: true, inline: <<-SHELL
     cd /home/actian
+    su - actian -c 'echo "alter user actian with password =actian;commit;\\p\\g" | sql iidbdb'
+
     if [ ! -d VectorH-DBT3-Scripts ]; then
       su actian -c 'git clone -q https://github.com/ActianCorp/VectorH-DBT3-Scripts'
       su - actian -c 'cd VectorH-DBT3-Scripts;chmod 755 *.sh;./load-run-dbt3-benchmark.sh > /tmp/load-run-dbt3-benchmark.log 2>&1'
