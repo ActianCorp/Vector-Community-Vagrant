@@ -53,7 +53,7 @@ The complete configuration for Virtual Box can take up to 5 minutes dependent on
 
 When complete, either logon directly to the VM as User: actian, Password : actian
 
-Or else you can use "vagrant ssh" to get a shell as the 'vagrant' user. If you want to use Vector then you should 'su - actian' to be able to use the Vector tools. If you hit a problem with vagrant ssh, see the Notes section below for a troubleshooting tip.
+Or else you can use "vagrant ssh" to get a shell as the 'vagrant' user. If you want to use Vector then you should 'su - actian' to be able to use the Vector tools. If you hit a login problem with vagrant ssh, see the Notes section below for a troubleshooting tip.
 
 At this point the Vector environment is fully configured for you to use.
 
@@ -62,40 +62,20 @@ The DBT3 test scripts have been run. The following output files are applicable:
     1. Run log - /tmp/load-run-dbt3-benchmark.log
     2. Run results - /home/actian/VectorH-DBT3-Scripts/run_performance.out
 
+## External access
 
-## NOTES and Troubleshooting
+The relevant ports have been opened up in the Vagrant VM to allow external access. Vagrant does not give the machine its own routable IP address, so instead this access has ben provided via port forwarding, meaning that you can use 'localhost' as the IP address, VW as the installation ID, and the Actian Client tools should connect straight away. This has been tested with the ODBC driver under Windows, for instance.
 
-### Initial install and Chef problem
+A database password has been created for the actian user to allow external access to the Vector installation.
 
-When running `vagrant up`, if you get to the point of installing Chef and see this:
-```
-    default: Running: script: Install Chef
-==> default:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-==> default:                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-.
-.
-  0     0    0     0    0     0      0      0 --:--:--  0:01:00 --:--:--     0
-==> default: Running provisioner: shell...
-    default: Running: script: Create Actian User
-==> default: -bash: chef-apply: command not found
-The SSH command responded with a non-zero exit status. Vagrant
-assumes that this means the command failed. The output for this command
-should be in the log above. Please read the output to determine what
-went wrong.
-```
-then this indicates that something went wrong with the Chef installation process, and you need to retry it. 
+## Using Tableau to visualise the DBT3 data set
 
-To do so, simply type `vagrant provision` and this will re-run the setup script. This is usually enough to fix the Chef installation download problem, should it occur.
+A Tableau workbook has been included as an example of how to use these tools together. The workbook is set up to use the DBT3 database and tables, connecting to localhost as set up by Vagrant above. It has some sample charts included to explore the data.
 
-The approach to using 'Chef' in the Vagrantfile may seem unusual as the installation and chef-apply are performed via the "config.vm.provision 'shell' ....".
-This was intentional to create a generic script that would work for both Oracle Virtual Box and Azure providers.
-Using Azure 'chef_apply' will fail installing Chef. Even when Chef is manually installed to circumvent this, it will then fail applying a Recipe even though it appears to complete successfully.
 
-### Vagrant SSH problem
+## NOTES
 
-If installing under Windows 10, you may hit problems with Vagrant and Virtual Box in being able to SSH into the created VM if there is a space in the pathname (especially if using something like Git Bash as your shell). The workaround for this is to use this as way to start an SSH shell, instead of simply using 'vagrant ssh':
+If installing under Windows 10, you may hit problems with Vagrant and Virtual Box in being able to SSH into the created VM if there is a space in the pathname. The workaround for this is to use this as way to start an SSH shell, instead of simply using 'vagrant ssh':
 
 `vagrant ssh-config > vagrant-ssh-config && ssh -A -F vagrant-ssh-config default`
 
@@ -109,3 +89,7 @@ This command can be placed into your .bashrc or created as an alias for convenie
   fi
 }
 ```
+
+The approach to using 'Chef' in the Vagrantfile may seem strange as the installation and chef-apply are performed via the "config.vm.provision 'shell' ....".
+This was intentional to create a generic script that would work for providers Oracle Virtual Box and Azure.
+Using Azure 'chef_apply' will fail installing Chef. Even when Chef is manually installed to circumvent this, it will then fail applying a Recipe even though it appears to complete successfully.
