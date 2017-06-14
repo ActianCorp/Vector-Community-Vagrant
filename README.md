@@ -15,6 +15,7 @@ To achieve this there are certain mandatory pre-requisites that must be fulfille
     3. Enable hardware virtualisation in the BIOS if it is disabled.
     4. (optional) install the 'cachier' vagrant package to save on downloads via
         vagrant plugin install cachier
+    5. (optional) Install Tableau to take advantage of the bundled workbook for the DBT3 data set.
 
 This package was tested using Vagrant 1.9.5, CentOS 7.3 and Oracle Virtual Box 5.1.22 / Microsoft
 Azure free trial.
