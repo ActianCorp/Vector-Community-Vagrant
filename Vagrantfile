@@ -141,13 +141,13 @@ Vagrant.configure(2) do |config|
 # Upload Chef files (Run locally to circumvent Azure problem)
 
   config.vm.provision 'file', source: 'actian-user.rb', destination: '/tmp/actian-user.rb'
-
   config.vm.provision 'file', source: 'vector-installer.rb', destination: '/tmp/vector-installer.rb'
+  config.vm.provision 'file', source: 'chef-install.sh', destination: '/tmp/chef-install.sh'
 
 # Install Chef (Circumvent auto install as problematic for Azure)
 
   config.vm.provision 'shell', name: 'Install Chef', privileged: true, inline: <<-SHELL
-    sudo su - -c 'curl -L https://www.opscode.com/chef/install.sh | bash'
+    sudo su - -c 'sh /tmp/chef-install.sh'
   SHELL
 
 # Create the 'actian' user ('chef_apply' fails for Azure)
